@@ -4,9 +4,9 @@
     <v-divider></v-divider>
     <!-- Function List -->
     <v-list shaped>
-      <v-list-item v-if="!user">
+      <v-list-item v-if="!user" @click="Githublogin">
         <v-list-item-icon>
-          <v-icon>mdi-account-circle</v-icon>
+          <img alt="Github" src="../assets/github.png" style="max-width: 30px;" />
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title>Login with Github</v-list-item-title>
@@ -26,11 +26,24 @@
 
 <script>
 import { mapState } from 'vuex'
+// import axios from 'axios'
+
+const config = {
+  oauth_uri: 'https://github.com/login/oauth/authorize',
+  redirect_uri: 'http://localhost:8080/profile',
+  client_id: '368c3543fd57241028ca',
+  client_secret: 'a5fbe2fb9e69bf21b24cf533edef8c65da3ac3cd'
+}
 
 export default {
   name: 'User',
   computed: {
     ...mapState(['user'])
+  },
+  methods: {
+    Githublogin () {
+      window.location.href = `${config.oauth_uri}?client_id=${config.client_id}&redirect_uri=${config.redirect_uri}`
+    }
   }
 }
 </script>
